@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="img/logo.ico">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="center">
+        <h1><a href="" title="">SignUp</a></h1>
+        <form action="" method="post" accept-charset="utf-8">
+            <div class="txt_field">
+                <input type="email" name="email" id="Email" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field">
+                <input type="text" name="username" id="Username" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="password" id="Password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="password" id="re-Password" required>
+                <span></span>
+                <label>Re-password</label>
+            </div>
+
+            <!-- <div class="pass">Forgot Password?</div> -->
+            <input type="button" value="SignUp" id="SignUp">
+            <!-- <div class="signup_link">
+				Not a member? <a href="#">Signup</a>
+			</div> -->
+        </form>
+    </div>
+    <!-- IMPOT + CONFIG -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCo0CX1RGviRW_4rvq-zct7qfKpn3yhVdg",
+            authDomain: "myfiredata-78f0d.firebaseapp.com",
+            projectId: "myfiredata-78f0d",
+            storageBucket: "myfiredata-78f0d.appspot.com",
+            messagingSenderId: "1000373767861",
+            appId: "1:1000373767861:web:bc1c1013df97129f73b8fc"
+        };
+
+        // Initialize Firebase
+
+        const app = initializeApp(firebaseConfig);
+        import { getDatabase, ref, get, set, child, update, remove }
+            from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
+        const db = getDatabase();
+
+        //References
+        var username = document.getElementById("Username");
+        var email = document.getElementById("Email");
+        var password = document.getElementById("Password");
+        var re_password = document.getElementById("re-Password");
+        var signupbtn = document.getElementById("SignUp");
+
+
+        //INSERT datafunction
+
+        function InsertData() {
+            const dbref = ref(db);
+            get(child(dbref, "Users/" + username.value)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    alert("The user is registered");
+                }
+                else {
+                    if (re_password.value == password.value) {
+                        set(ref(db, "Users/" + username.value), {
+                            Username: username.value,
+                            Email: email.value,
+                            Password: password.value
+                        })
+                            .then(() => {
+                                alert("SignUp successfully");
+                                location.href = "index.html";
+                            })
+                            .catch((error) => {
+                                alert("unsuccesful, error" + error);
+                            });
+                    }
+                    else alert("Re-Password does not match Password, please try again!");
+                }
+            })
+                .catch((error) => {
+                    alert("unsuccessful, error" + error);
+                });
+
+        }
+
+        //Assign Events to Btns
+
+        signupbtn.addEventListener('click', InsertData);
+    </script>
+</body>
+
+</html>
