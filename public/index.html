@@ -69,9 +69,9 @@
         //Select datafunction
         function SelectData() {
             const dbref = ref(db);
-            get(child(dbref, "Users/" + username.value)).then((snapshot) => {
+            get(child(dbref, "admin")).then((snapshot) => {
                 if (snapshot.exists()) {
-                    if (password.value == snapshot.val().Password) {
+                    if (password.value == snapshot.val().password) {
                         console.log("1");
                         var a = "about.html?" + "username=" + username.value;
                         console.log(a);
