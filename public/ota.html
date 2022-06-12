@@ -12,9 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
         content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-    <title>Sidebar template</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>OTA</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
     <link rel="stylesheet" href="test/style.css">
@@ -37,6 +39,7 @@
 
     .content {
         padding: 20px;
+        text-align: center;
         min-height: 550px;
     }
 
@@ -68,14 +71,26 @@
     .card.humidity {
         color: #1b78e2;
     }
-    .card.pressure{
+
+    .card.pressure {
         color: rgb(19, 186, 28);
     }
-    .card.gas{
+
+    .card.gas {
         color: #e80fec;
     }
+
     .container-fluid {
         text-align: center;
+    }
+    .ota_button{
+        width: 150px;
+        height: 50px;
+        border-radius: 20px;
+    }
+    #buttonloading{
+        display: none;
+        visibility: hidden;
     }
 </style>
 
@@ -209,36 +224,14 @@
         <main class="page-content">
             <div class="container-fluid">
                 <div class="topnav">
-                    <h3>DASHBOARD</h3>
+                    <h3>OTA</h3>
                 </div>
                 <div class="content">
-                    <div class="cards">
-                        <div class="card temperature">
-                            <h4><i class="fas fa-thermometer-half"></i> TEMPERATURE</h4>
-                            <p><span class="reading"><span id="t1"></span> &deg;C</span></p>
-                            <p class="packet">Reading ID: <span id="rt1"></span></p>
-                        </div>
-                        <div class="card humidity">
-                            <h4><i class="fas fa-tint"></i> HUMIDITY</h4>
-                            <p><span class="reading"><span id="h1"></span> &percnt;</span></p>
-                            <p class="packet">Reading ID: <span id="rh1"></span></p>
-                        </div>
-                        <div class="card pressure">
-                            <h4><i class="fas fa-angle-double-down"></i> PRESSURE</h4>
-                            <p><span class="reading"><span id="p1"></span> hPa</span></p>
-                            <p class="packet">Reading ID: <span id="rp1"></span></p>
-                        </div>
-                        <div class="card gas">
-                            <h4><i class="fas fa-wind"></i> GAS</h4>
-                            <p><span class="reading"><span id="g1"></span> K&ohm;</span></p>
-                            <p class="packet">Reading ID: <span id="rg1"></span></p>
-                        </div>
-                        <div class="card uv">
-                            <h4><i class="fas fa-adjust"></i> UV</h4>
-                            <p><span class="reading"><span id="u1"></span> (mW/cm2)</span></p>
-                            <p class="packet">Reading ID: <span id="ru1"></span></p>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-primary ota_button"id="buttonactive" onclick="button_active()">Primary</button>
+                    <button class="btn btn-primary ota_button" id="buttonloading" disabled>
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Loading..
+                    </button>
                 </div>
 
                 <hr>
@@ -275,7 +268,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+    <script>
+        function button_active(){
+            document.getElementById("buttonloading").style.display = "inline";
+            document.getElementById("buttonactive").style.display = "none";
+            document.getElementById("buttonloading").style.visibility = "visible";
+            document.getElementById("buttonactive").style.display = "hidden";
+        }
+    </script>
 </body>
 
 </html>

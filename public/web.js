@@ -58,9 +58,10 @@ function MessageArrived(message) {
         if (DataJson.H1 != null) {
             document.getElementById("h1").innerHTML = parseInt(DataJson.H1);
         }
-        // if (DataJson.M1 != null) {
-        // 	document.getElementById("doamdat_node1").value = parseInt(DataJson.M1);
-        // }
+        if (DataJson.OTA != null) {
+        	document.getElementById("buttonloading").style.display = "none";
+            document.getElementById("buttonactive").style.display = "inline";
+        }
         // if (DataJson.T != null) {
         // 	document.getElementById("nhietdo_gateway").value = parseInt(DataJson.T);
         // }
