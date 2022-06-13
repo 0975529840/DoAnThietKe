@@ -113,3 +113,20 @@ function IsJsonString(str) {
     checkjson = true;
     return true;
 }
+function SendButtonControl() {
+	var state = document.getElementById("bom").value;
+	if (state == "OFF") {
+		var DataSend = "{\"Bom\":\"" + 1 + "\"}";
+		mqttClient.send(topicpub, DataSend);
+		document.getElementById("bom").value = "ON";
+		document.getElementById("bom").style.backgroundColor = "#33ff33";
+		document.getElementById("bom").style.color = "black";
+	}
+	else {
+		var DataSend = "{\"Bom\":\"" + 0 + "\"}";
+		mqttClient.send(topicpub, DataSend);
+		document.getElementById("bom").value = "OFF";
+		document.getElementById("bom").style.backgroundColor = "#ff0000";
+		document.getElementById("bom").style.color = "white";
+	}
+}

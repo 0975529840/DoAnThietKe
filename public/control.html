@@ -83,12 +83,14 @@
     .container-fluid {
         text-align: center;
     }
-    .ota_button{
+
+    .ota_button {
         width: 150px;
         height: 50px;
         border-radius: 20px;
     }
-    #buttonloading{
+
+    #buttonloading {
         display: none;
         visibility: hidden;
     }
@@ -224,14 +226,37 @@
         <main class="page-content">
             <div class="container-fluid">
                 <div class="topnav">
-                    <h3>OTA</h3>
+                    <h3>Control</h3>
                 </div>
                 <div class="content">
-                    <button type="button" class="btn btn-primary ota_button"id="buttonactive" onclick="button_active()">Primary</button>
+                    <!-- <button type="button" class="btn btn-primary ota_button"id="buttonactive" onclick="button_active()">Primary</button>
                     <button class="btn btn-primary ota_button" id="buttonloading" disabled>
                         <span class="spinner-grow spinner-grow-sm"></span>
                         Loading..
-                    </button>
+                    </button> -->
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <h4>Button</h4>
+                            <button type="button" class="btn btn-primary ota_button"id="buttonControlActive" onclick="SendButtonControl()">Primary</button>
+                        </div>
+                        <div class="col-md-6 align-self-center">
+                            <h4>State</h4>
+                            <input class="btn btn-danger" id="bom" type="button" value="OFF" style="outline: none; border: none;">
+                            
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <h4>Button</h4>
+                            <button type="button" class="btn btn-primary ota_button"id="buttonControlActive" onclick="SendButtonControl()">Primary</button>
+                        </div>
+                        <div class="col-md-6 align-self-center">
+                            <h4>State</h4>
+                            <input class="btn btn-danger" id="bom" type="button" value="OFF" style="outline: none; border: none;">
+                            
+                        </div>
+                    </div>
                 </div>
 
                 <hr>
@@ -269,12 +294,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script>
-        function button_active(){
-            document.getElementById("buttonloading").style.display = "inline";
-            document.getElementById("buttonactive").style.display = "none";
-            document.getElementById("buttonloading").style.visibility = "visible";
-            document.getElementById("buttonactive").style.display = "hidden";
-        }
+
     </script>
 </body>
 
