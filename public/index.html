@@ -65,16 +65,12 @@
 
         var login = document.getElementById("Loginbtn");
 
-
         //Select datafunction
         function SelectData() {
             const dbref = ref(db);
             get(child(dbref, "admin")).then((snapshot) => {
                 if (snapshot.exists()) {
                     if (password.value == snapshot.val().password) {
-                        console.log("1");
-                        var a = "about.html?" + "username=" + username.value;
-                        console.log(a);
                         location.href = "dashboard.html?" + "username=" + username.value;
                     }
                     else {
@@ -90,7 +86,6 @@
                 });
         }
         //Assign Events to Btns
-
         login.addEventListener('click', SelectData);
     </script>
 </body>
