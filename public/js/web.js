@@ -53,19 +53,19 @@ function MessageArrived(message) {
         var DataJson = JSON.parse(DataVDK);
         //DataJson {"ND":"20","DA":"30","PR":"40","GA":"50","UV":"60"}
         if (DataJson.ND != null) {
-            document.getElementById("t1").innerHTML = parseInt(DataJson.ND);
+            document.getElementById("t1").innerHTML = parseFloat(DataJson.ND);
         }
         if (DataJson.DA != null) {
-            document.getElementById("h1").innerHTML = parseInt(DataJson.DA);
+            document.getElementById("h1").innerHTML = parseFloat(DataJson.DA);
         }
         if (DataJson.PR != null) {
-            document.getElementById("p1").innerHTML = parseInt(DataJson.PR);
+            document.getElementById("p1").innerHTML = parseFloat(DataJson.PR);
         }
         if (DataJson.GA != null) {
-            document.getElementById("g1").innerHTML = parseInt(DataJson.GA);
+            document.getElementById("g1").innerHTML = parseFloat(DataJson.GA);
         }
         if (DataJson.UV != null) {
-            document.getElementById("u1").innerHTML = parseInt(DataJson.UV);
+            document.getElementById("u1").innerHTML = parseFloat(DataJson.UV);
         }
         if (DataJson.OTA != null) {
         	document.getElementById("buttonloading").style.display = "none";
