@@ -13,6 +13,7 @@
     <meta name="description"
         content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
     <title>Charts</title>
+    <link rel="icon" type="image/x-icon" href="img/1.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
@@ -21,6 +22,11 @@
     <script src="js/slidebar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
     <script src="js/web.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
 <style>
@@ -68,15 +74,20 @@
     .card.humidity {
         color: #1b78e2;
     }
-    .card.pressure{
+
+    .card.pressure {
         color: rgb(19, 186, 28);
     }
-    .card.gas{
+
+    .card.gas {
         color: #e80fec;
     }
+
     .container-fluid {
         text-align: center;
     }
+
+
 </style>
 
 <body>
@@ -209,10 +220,10 @@
         <main class="page-content">
             <div class="container-fluid">
                 <div class="topnav">
-                    <h3>DASHBOARD</h3>
+                    <h3>CHARTS</h3>
                 </div>
                 <div class="content">
-                    <div class="cards">
+                    <div class="cards" style="display: none;">
                         <div class="card temperature">
                             <h4><i class="fas fa-thermometer-half"></i> TEMPERATURE</h4>
                             <p><span class="reading"><span id="t1"></span> &deg;C</span></p>
@@ -238,7 +249,112 @@
                             <p><span class="reading"><span id="u1"></span> (mW/cm2)</span></p>
                             <p class="packet">Reading ID: <span id="ru1"></span></p>
                         </div>
+                        <div class="card time">
+                            <h4><i class="fas fa-adjust"></i> Time</h4>
+                            <p><span class="reading"><span id="time"></span> </span></p>
+                            <p class="packet">Reading ID: <span id="rtime"></span></p>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <div class="group_grap">
+                                <!-- <div id="empcontainerND" class="empcontainer"></div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 align-self-center">
+                            <div class="group_grap">
+                                <!-- <div id="empcontainerDA" class="empcontainer"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 grid-margin grid-margin-lg-0"
+                            style="position: relative;">
+                            <div class="group_grap" style="width: 100%; text-align: center;">
+                                <div id="empcontainerDA" class="empcontainer"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Đồ thị nhiệt độ</h3>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <div class="chart tab-pane active" id=""
+                                    style="position: relative; min-height: 200px;">
+                                    <div id="empcontainerND" class="empcontainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Đồ thị độ ẩm</h3>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <div class="chart tab-pane active" id=""
+                                    style="position: relative; min-height: 200px;">
+                                    <div id="empcontainerDA" class="empcontainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Đồ thị áp suất</h3>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <div class="chart tab-pane active" id=""
+                                    style="position: relative; min-height: 200px;">
+                                    <div id="empcontainerPR" class="empcontainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Đồ thị Gas</h3>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <div class="chart tab-pane active" id=""
+                                    style="position: relative; min-height: 200px;">
+                                    <div id="empcontainerGA" class="empcontainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Đồ thị UV</h3>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <div class="chart tab-pane active" id=""
+                                    style="position: relative; min-height: 200px;">
+                                    <div id="empcontainerUV" class="empcontainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <hr>
@@ -277,5 +393,107 @@
         crossorigin="anonymous"></script>
 
 </body>
+<script>
+    Highcharts.setOptions({
+    colors: ['#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+});
+    var chartDA = Highcharts.chart('empcontainerDA', {
+        title: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+
+        series: [{
+            name: 'Độ ẩm',
+            data: dataND
+        }]
+    });
+    var chartND = Highcharts.chart('empcontainerND', {
+        title: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+
+        series: [{
+            name: 'Nhiệt độ',
+            data: dataND
+        }]
+    });
+    var chartPR = Highcharts.chart('empcontainerPR', {
+        title: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+
+        series: [{
+            name: 'Áp suất',
+            data: dataND
+        }]
+    });
+    var chartGA = Highcharts.chart('empcontainerGA', {
+        title: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+
+        series: [{
+            name: 'GAS',
+            data: dataND
+        }]
+    });
+    var chartUV = Highcharts.chart('empcontainerUV', {
+        title: {
+            text: ''
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            categories: categories
+        },
+
+        series: [{
+            name: 'UV',
+            data: dataND
+        }]
+    });
+    setInterval(function () {
+        chartND.reflow();
+        chartDA.reflow();
+        chartPR.reflow();
+        chartGA.reflow();
+        chartUV.reflow();
+    }, 200);
+</script>
 
 </html>

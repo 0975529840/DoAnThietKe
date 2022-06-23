@@ -1,3 +1,36 @@
+var dataND = [0, 0, 0, 0, 0];
+
+var dataMN = [0, 0, 0, 0, 0];
+
+var categories = ['0h', '1h', '2h', '3h', '4h'];
+var i = 0;
+
+function myFunction() {
+    i++;
+    // var date=new Date();
+    // categories.push(String(document.getElementById("time").innerHTML));
+    // console.log(chartND.series[0]);
+    var x = String(document.getElementById("time").innerHTML);
+    if (i < 3) {
+        chartND.series[0].addPoint([x, parseInt(document.getElementById("t1").innerHTML)]);
+        chartDA.series[0].addPoint([x, parseInt(document.getElementById("h1").innerHTML)]);
+        chartPR.series[0].addPoint([x, parseInt(document.getElementById("p1").innerHTML)]);
+        chartGA.series[0].addPoint([x, parseInt(document.getElementById("g1").innerHTML)]);
+        chartUV.series[0].addPoint([x, parseInt(document.getElementById("u1").innerHTML)]);
+    }
+    else {
+        chartND.series[0].addPoint([x, parseInt(document.getElementById("t1").innerHTML)]);
+        chartDA.series[0].addPoint([x, parseInt(document.getElementById("h1").innerHTML)]);
+        chartPR.series[0].addPoint([x, parseInt(document.getElementById("p1").innerHTML)]);
+        chartGA.series[0].addPoint([x, parseInt(document.getElementById("g1").innerHTML)]);
+        chartUV.series[0].addPoint([x, parseInt(document.getElementById("u1").innerHTML)]);
+        chartND.series[0].removePoint(0);
+        chartDA.series[0].removePoint(0);
+        chartPR.series[0].removePoint(0);
+        chartGA.series[0].removePoint(0);
+        chartUV.series[0].removePoint(0);
+    }
+}
 var hostname = "ngoinhaiot.com";
 
 var port = 3333;
@@ -42,8 +75,7 @@ function ConnectionLost(res) {
 }
 function MessageArrived(message) {
     console.log("Data STM-ESP :" + message.payloadString);
-    // {"ND":"0","DA":"0","DAD":"0","Bom":"0"}
-    //{"T1":"30","H1":"20","M1":"20","T2":"20","H2":"20","M2":"20","T":"20","H":"30","M":"10","Bom":"0"}
+    // {"ND":"20","DA":"30","PR":"40","GA":"50","UV":"60"}
     // Kiểm tra JSON đó  lỗi ko ??
     // nếu ko lỗi thì xử lý  => hiển thị đúng vị trí trên giao diện mình thiết kế
     IsJsonString(message.payloadString)
@@ -68,13 +100,17 @@ function MessageArrived(message) {
             document.getElementById("u1").innerHTML = parseFloat(DataJson.UV);
         }
         if (DataJson.OTA != null) {
-        	document.getElementById("buttonloading").style.display = "none";
+            document.getElementById("buttonloading").style.display = "none";
             document.getElementById("buttonactive").style.display = "inline";
+        }
+        if (DataJson.time != null) {
+            document.getElementById("time").innerHTML = DataJson.time;
         }
     }
     else {
         console.log("JSON Error!!!");
     }
+    myFunction();
 }
 function IsJsonString(str) {
     try {
@@ -88,25 +124,25 @@ function IsJsonString(str) {
     return true;
 }
 function SendButtonControl() {
-	var state = document.getElementById("bom").value;
-	if (state == "OFF") {
-		var DataSend = "{\"Bom\":\"" + 1 + "\"}";
-		mqttClient.send(topicpub, DataSend);
-		document.getElementById("bom").value = "ON";
-		document.getElementById("bom").style.backgroundColor = "#33ff33";
-		document.getElementById("bom").style.color = "black";
-	}
-	else {
-		var DataSend = "{\"Bom\":\"" + 0 + "\"}";
-		mqttClient.send(topicpub, DataSend);
-		document.getElementById("bom").value = "OFF";
-		document.getElementById("bom").style.backgroundColor = "#ff0000";
-		document.getElementById("bom").style.color = "white";
-	}
+    var state = document.getElementById("bom").value;
+    if (state == "OFF") {
+        var DataSend = "{\"Bom\":\"" + 1 + "\"}";
+        mqttClient.send(topicpub, DataSend);
+        document.getElementById("bom").value = "ON";
+        document.getElementById("bom").style.backgroundColor = "#33ff33";
+        document.getElementById("bom").style.color = "black";
+    }
+    else {
+        var DataSend = "{\"Bom\":\"" + 0 + "\"}";
+        mqttClient.send(topicpub, DataSend);
+        document.getElementById("bom").value = "OFF";
+        document.getElementById("bom").style.backgroundColor = "#ff0000";
+        document.getElementById("bom").style.color = "white";
+    }
 }
-function button_active(){
+function button_active() {
     var DataSend = "{\"OTA\":\"1\"}";
-    mqttClient.send(topicpub,DataSend);
+    mqttClient.send(topicpub, DataSend);
     document.getElementById("buttonloading").style.display = "inline";
     document.getElementById("buttonactive").style.display = "none";
     document.getElementById("buttonloading").style.visibility = "visible";
