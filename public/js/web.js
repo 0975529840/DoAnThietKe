@@ -1,8 +1,8 @@
-var dataND = [0, 0, 0, 0, 0];
+var dataND = [0, 0];
 
-var dataMN = [0, 0, 0, 0, 0];
+var dataMN = [0, 0];
 
-var categories = ['0h', '1h', '2h', '3h', '4h'];
+var categories = ['0h', '1h'];
 var i = 0;
 
 function myFunction() {
@@ -11,19 +11,20 @@ function myFunction() {
     // categories.push(String(document.getElementById("time").innerHTML));
     // console.log(chartND.series[0]);
     var x = String(document.getElementById("time").innerHTML);
-    if (i < 3) {
-        chartND.series[0].addPoint([x, parseInt(document.getElementById("t1").innerHTML)]);
-        chartDA.series[0].addPoint([x, parseInt(document.getElementById("h1").innerHTML)]);
-        chartPR.series[0].addPoint([x, parseInt(document.getElementById("p1").innerHTML)]);
-        chartGA.series[0].addPoint([x, parseInt(document.getElementById("g1").innerHTML)]);
-        chartUV.series[0].addPoint([x, parseInt(document.getElementById("u1").innerHTML)]);
+    categories.push(x);
+    if (i < 5) {
+        chartND.series[0].addPoint([x, parseFloat(document.getElementById("t1").innerHTML)]);
+        chartDA.series[0].addPoint([x, parseFloat(document.getElementById("h1").innerHTML)]);
+        chartPR.series[0].addPoint([x, parseFloat(document.getElementById("p1").innerHTML)]);
+        chartGA.series[0].addPoint([x, parseFloat(document.getElementById("g1").innerHTML)]);
+        chartUV.series[0].addPoint([x, parseFloat(document.getElementById("u1").innerHTML)]);
     }
     else {
-        chartND.series[0].addPoint([x, parseInt(document.getElementById("t1").innerHTML)]);
-        chartDA.series[0].addPoint([x, parseInt(document.getElementById("h1").innerHTML)]);
-        chartPR.series[0].addPoint([x, parseInt(document.getElementById("p1").innerHTML)]);
-        chartGA.series[0].addPoint([x, parseInt(document.getElementById("g1").innerHTML)]);
-        chartUV.series[0].addPoint([x, parseInt(document.getElementById("u1").innerHTML)]);
+        chartND.series[0].addPoint([x, parseFloat(document.getElementById("t1").innerHTML)]);
+        chartDA.series[0].addPoint([x, parseFloat(document.getElementById("h1").innerHTML)]);
+        chartPR.series[0].addPoint([x, parseFloat(document.getElementById("p1").innerHTML)]);
+        chartGA.series[0].addPoint([x, parseFloat(document.getElementById("g1").innerHTML)]);
+        chartUV.series[0].addPoint([x, parseFloat(document.getElementById("u1").innerHTML)]);
         chartND.series[0].removePoint(0);
         chartDA.series[0].removePoint(0);
         chartPR.series[0].removePoint(0);
