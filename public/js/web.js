@@ -4,7 +4,7 @@ var dataMN = [0, 0];
 
 var categories = ['0h', '1h'];
 var i = 0;
-
+var state = 0;
 function myFunction() {
     i++;
     // var date=new Date();
@@ -84,34 +84,42 @@ function MessageArrived(message) {
         console.log("JSON OK!!!");
         var DataVDK = message.payloadString;
         var DataJson = JSON.parse(DataVDK);
-        //DataJson {"ND":"20","DA":"30","PR":"40","GA":"50","UV":"60"}
-        if (DataJson.ND != null) {
-            document.getElementById("t1").innerHTML = parseFloat(DataJson.ND);
+        //DataJson {"ND":"20","DA":"30","PR":"40","GA":"50","UV":"60","time":"0:0:36"}
+        if (location.href.includes("dashboard.html")||location.href.includes("charts.html")) {
+            if (DataJson.ND != null) {
+                document.getElementById("t1").innerHTML = parseFloat(DataJson.ND);
+            }
+            if (DataJson.DA != null) {
+                document.getElementById("h1").innerHTML = parseFloat(DataJson.DA);
+            }
+            if (DataJson.PR != null) {
+                document.getElementById("p1").innerHTML = parseFloat(DataJson.PR);
+            }
+            if (DataJson.GA != null) {
+                document.getElementById("g1").innerHTML = parseFloat(DataJson.GA);
+            }
+            if (DataJson.UV != null) {
+                document.getElementById("u1").innerHTML = parseFloat(DataJson.UV);
+            }
+            if (DataJson.time != null) {
+                document.getElementById("time").innerHTML = DataJson.time;
+            }
         }
-        if (DataJson.DA != null) {
-            document.getElementById("h1").innerHTML = parseFloat(DataJson.DA);
+        if (location.href.includes("ota.html")) {
+            if (DataJson.OTA != null) {
+                document.getElementById("buttonloading").style.display = "none";
+                document.getElementById("buttonactive").style.display = "inline";
+            }
         }
-        if (DataJson.PR != null) {
-            document.getElementById("p1").innerHTML = parseFloat(DataJson.PR);
-        }
-        if (DataJson.GA != null) {
-            document.getElementById("g1").innerHTML = parseFloat(DataJson.GA);
-        }
-        if (DataJson.UV != null) {
-            document.getElementById("u1").innerHTML = parseFloat(DataJson.UV);
-        }
-        if (DataJson.OTA != null) {
-            document.getElementById("buttonloading").style.display = "none";
-            document.getElementById("buttonactive").style.display = "inline";
-        }
-        if (DataJson.time != null) {
-            document.getElementById("time").innerHTML = DataJson.time;
-        }
+
     }
     else {
         console.log("JSON Error!!!");
     }
-    myFunction();
+    if (location.href.includes("charts.html")) {
+        myFunction();
+    }
+
 }
 function IsJsonString(str) {
     try {
