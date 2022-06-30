@@ -133,20 +133,20 @@ function IsJsonString(str) {
     return true;
 }
 function SendButtonControl() {
-    var state = document.getElementById("bom").value;
+    var state = document.getElementById("Rem").value;
     if (state == "OFF") {
-        var DataSend = "{\"Bom\":\"" + 1 + "\"}";
+        var DataSend = "{\"Rem\":\"" + 1 + "\"}";
         mqttClient.send(topicpub, DataSend);
-        document.getElementById("bom").value = "ON";
-        document.getElementById("bom").style.backgroundColor = "#33ff33";
-        document.getElementById("bom").style.color = "black";
+        document.getElementById("Rem").value = "ON";
+        document.getElementById("Rem").style.backgroundColor = "#33ff33";
+        document.getElementById("Rem").style.color = "black";
     }
     else {
-        var DataSend = "{\"Bom\":\"" + 0 + "\"}";
+        var DataSend = "{\"Rem\":\"" + 0 + "\"}";
         mqttClient.send(topicpub, DataSend);
-        document.getElementById("bom").value = "OFF";
-        document.getElementById("bom").style.backgroundColor = "#ff0000";
-        document.getElementById("bom").style.color = "white";
+        document.getElementById("Rem").value = "OFF";
+        document.getElementById("Rem").style.backgroundColor = "#ff0000";
+        document.getElementById("Rem").style.color = "white";
     }
 }
 function button_active() {
